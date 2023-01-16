@@ -5,6 +5,12 @@ const getAll = async (_req, res) => {
   res.status(200).json(products);
 };
 
+const getProductById = async (req, res) => {
+  const product = await productsService.getProductById();
+  res.status(201).json(product);
+};
+
 module.exports = {
   getAll,
+  getProductById,
 };
