@@ -6,8 +6,9 @@ const getAll = async (_req, res) => {
 };
 
 const getProductById = async (req, res) => {
-  const product = await productsService.getProductById();
-  res.status(201).json(product);
+  const { id } = req.params;
+  const product = await productsService.getProductById(id);
+  res.status(200).json(product);
 };
 
 module.exports = {

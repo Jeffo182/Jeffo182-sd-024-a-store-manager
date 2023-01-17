@@ -6,10 +6,9 @@ const getAll = async () => {
   return products;
 };
 
-const getProductById = async (req) => {
-  const { id } = req.params;
-  const query = `SELECT id, name FROM StoreManager.products WHERE id = ${id}`;
-  const product = await connection.execute(query);
+const getProductById = async (id) => {
+  const query = 'SELECT id, name FROM StoreManager.products WHERE id = ?';
+  const [product] = await connection.execute(query, [id]);
   return product;
 };
 
