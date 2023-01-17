@@ -10,7 +10,7 @@ const getProductById = async (id) => {
   if (!product) {
     return { type: 404, message: 'Product not found' };
   }
-  return { type: null, data: product };
+  return { type: null, message: product };
 };
 
 module.exports = {
