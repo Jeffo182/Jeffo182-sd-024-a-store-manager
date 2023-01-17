@@ -8,9 +8,9 @@ const getAll = async () => {
 const getProductById = async (id) => {
   const product = await productsModel.getProductById(id);
   if (!product) {
-    return { type: 404, message: 'O produto nao foi encontrado' };
+    return { type: 404, message: 'Product not found' };
   }
-  return { type: 200, data: product };
+  return { type: null, data: product };
 };
 
 module.exports = {
