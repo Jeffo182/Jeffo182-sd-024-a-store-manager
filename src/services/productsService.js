@@ -1,4 +1,5 @@
 const productsModel = require('../models/productsModel');
+const { newProductSchema } = require('./validations');
 
 const getAll = async () => {
   const products = await productsModel.getAll();
@@ -14,6 +15,9 @@ const getProductById = async (id) => {
 };
 
 const createProduct = async ({ name }) => {
+  const { error } = newProductSchema.validate({ name });
+  if (error) throw { status: 400, message: error.message };
+
   const id = await productsModel.createProduct({ name });
   return { id, name };
 };
