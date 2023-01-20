@@ -1,4 +1,6 @@
 const productsModel = require('../models/productsModel');
+const { mapError } = require('../utils/errorMap');
+const { schemaName } = require('./validations/schema');
 
 const getAll = async () => {
   const products = await productsModel.getAll();
@@ -14,8 +16,12 @@ const getProductById = async (id) => {
 };
 
 const createProduct = async ({ name }) => {
+  const { error } = schemaName.validate(name);
+  if (error) {
+    return mapError(error.message);
+  }
   const id = await productsModel.createProduct({ name });
-  return { status: null, message: { id, name } };
+  return { id, name };
 };
 
 module.exports = {
