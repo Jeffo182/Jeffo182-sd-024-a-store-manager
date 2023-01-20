@@ -8,11 +8,13 @@ const getAllIds = async (productList) => {
   const dbVerify = await Promise.all(
     productList.map(async (item) => {
       const product = await productsModel.getProductById(item.productId);
-      if (product.length === 0) return false;
-      return true;
+      if (!product) {
+        return false;
+      }
+        return true;
     }),
   );
-
+  console.log(`Resultado do DBverify ${dbVerify} fim do resultado`);
   return dbVerify;
 };
 
@@ -24,13 +26,14 @@ const createNewProductsSale = async (productList) => {
 
   const exist = await getAllIds(productList);
   const go = exist.every((item) => item === true);
+  console.log(go);
 
   if (go) {
     await salesModel.newSale();
     const newSalesProducts = await salesProductsModel.newSaleProduct(productList);
     if (newSalesProducts) return newSalesProducts;
   }
-  return { type: 'NOT_FOUND', message: 'Product not found' };
+    return { status: 404, message: 'Product not found' };
 };
 
 module.exports = {
