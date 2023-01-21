@@ -9,6 +9,11 @@ const schemaName = Joi.string()
     'any.min': '{{#label}} length must be at least 5 characters long',
   });
 
+  const schemaGetSales = Joi.number()
+    .min(1)
+    .integer()
+    .required();
+
   const addSalesProductSchema = Joi.object({
     productId: Joi.number()
       .min(1)
@@ -31,4 +36,5 @@ const schemaSales = Joi.array().items(addSalesProductSchema);
 module.exports = {
   schemaName,
   schemaSales,
+  schemaGetSales,
 };

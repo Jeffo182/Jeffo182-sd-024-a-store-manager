@@ -35,7 +35,6 @@ const findById = async (id) => {
   const qSales = `${qSalesPartLint} FROM StoreManager.sales_products WHERE sale_id = ?`;
   const [dateOfSales] = await connection.execute(query, [id]);
   const [productsOfSales] = await connection.execute(qSales, [id]);
-  console.log(`LOG DO FINDBYID ${dateOfSales}, ${productsOfSales}`);
   return { dateOfSales, productsOfSales };
 };
 

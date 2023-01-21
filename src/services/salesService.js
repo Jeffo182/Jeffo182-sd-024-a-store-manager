@@ -54,8 +54,25 @@ const getAll = async () => {
 };
 
 const findById = async (id) => {
-  const response = await salesProductsModel.findById(id);
-  return response;
+  const { dateOfSales, productsOfSales } = await salesProductsModel.findById(
+    id,
+  );
+
+    console.log(`LOG DO FINDBYID ${dateOfSales}, ${productsOfSales}`);
+
+  if (!dateOfSales || dateOfSales.length === 0) { return mapError('Sale not found'); }
+
+  const merged = productsOfSales.map((element) => ({
+    ...dateOfSales.find((o) => o.id === element.sale_id),
+    ...element,
+  }));
+
+  const result = merged.map((element) => ({
+    date: element.date,
+    productId: element.product_id,
+    quantity: element.quantity,
+  }));
+  return result;
 };
 
 module.exports = {

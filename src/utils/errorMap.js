@@ -11,6 +11,7 @@ const errorMap = [
   { status: 400, message: '"productId" is required' },
   { status: 422, message: '"quantity" must be greater than or equal to 1' },
   { status: 404, message: 'Product not found' },
+  { status: 404, message: 'Sale not found' },
 ];
 
 const mapError = (msgError) => {

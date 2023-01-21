@@ -18,7 +18,10 @@ const findById = async (req, res) => {
   const { id } = req.params;
   const response = await salesService.findById(id);
 
-  res.status(200).json(response);
+  if (response.status) {
+    return res.status(response.status).json({ message: response.message });
+  }
+  return res.status(200).json(response);
 };
 
 module.exports = {
