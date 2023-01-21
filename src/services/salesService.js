@@ -36,6 +36,30 @@ const createNewProductsSale = async (productList) => {
     return { status: 404, message: 'Product not found' };
 };
 
+const getAll = async () => {
+  const { sales, products } = await salesProductsModel.getAll();
+  const merged = products.map((element) => ({
+    ...sales.find((o) => o.id === element.sale_id),
+    ...element,
+  }));
+  console.log(merged);
+
+  const result = merged.map((element) => ({
+    saleId: element.sale_id,
+    date: element.date,
+    productId: element.product_id,
+    quantity: element.quantity,
+  }));
+  return result;
+};
+
+const findById = async (id) => {
+  const response = await salesProductsModel.findById(id);
+  return response;
+};
+
 module.exports = {
   createNewProductsSale,
+  getAll,
+  findById,
 };

@@ -20,6 +20,27 @@ const newSaleProduct = async (productList) => {
   return { id, itemsSold: sale };
 };
 
+const getAll = async () => {
+  const query = 'SELECT * FROM StoreManager.sales';
+  const qSales = 'SELECT * FROM StoreManager.sales_products';
+  const [sales] = await connection.execute(query);
+  const [products] = await connection.execute(qSales);
+  console.log(`LOG DO FINDBYID ${sales}, ${products}`);
+  return { sales, products };
+};
+
+const findById = async (id) => {
+  const query = 'SELECT id, date FROM StoreManager.sales WHERE id = ?';
+  const qSalesPartLint = 'SELECT sale_id, product_id, quantity';
+  const qSales = `${qSalesPartLint} FROM StoreManager.sales_products WHERE sale_id = ?`;
+  const [dateOfSales] = await connection.execute(query, [id]);
+  const [productsOfSales] = await connection.execute(qSales, [id]);
+  console.log(`LOG DO FINDBYID ${dateOfSales}, ${productsOfSales}`);
+  return { dateOfSales, productsOfSales };
+};
+
 module.exports = {
   newSaleProduct,
+  getAll,
+  findById,
 };
