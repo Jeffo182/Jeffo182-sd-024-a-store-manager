@@ -25,7 +25,6 @@ const getAll = async () => {
   const qSales = 'SELECT * FROM StoreManager.sales_products';
   const [sales] = await connection.execute(query);
   const [products] = await connection.execute(qSales);
-  console.log(`LOG DO FINDBYID ${sales}, ${products}`);
   return { sales, products };
 };
 
@@ -38,8 +37,15 @@ const findById = async (id) => {
   return { dateOfSales, productsOfSales };
 };
 
+const updateProduct = async (id, name) => {
+  const query = 'UPDATE products SET name = ? WHERE id = ?';
+  const [updatedProduct] = await connection.execute(query, [name, id]);
+  return updatedProduct;
+};
+
 module.exports = {
   newSaleProduct,
   getAll,
   findById,
+  updateProduct,
 };

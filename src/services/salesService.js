@@ -26,7 +26,6 @@ const createNewProductsSale = async (productList) => {
 
   const exist = await getAllIds(productList);
   const go = exist.every((item) => item === true);
-  console.log(go);
 
   if (go) {
     await salesModel.newSale();
@@ -42,7 +41,6 @@ const getAll = async () => {
     ...sales.find((o) => o.id === element.sale_id),
     ...element,
   }));
-  console.log(merged);
 
   const result = merged.map((element) => ({
     saleId: element.sale_id,
@@ -57,8 +55,6 @@ const findById = async (id) => {
   const { dateOfSales, productsOfSales } = await salesProductsModel.findById(
     id,
   );
-
-    console.log(`LOG DO FINDBYID ${dateOfSales}, ${productsOfSales}`);
 
   if (!dateOfSales || dateOfSales.length === 0) { return mapError('Sale not found'); }
 
@@ -75,8 +71,14 @@ const findById = async (id) => {
   return result;
 };
 
+const updateProduct = async (id, name) => {
+  const response = await salesProductsModel.updateProduct(id, name);
+  return response;
+};
+
 module.exports = {
   createNewProductsSale,
   getAll,
   findById,
+  updateProduct,
 };
