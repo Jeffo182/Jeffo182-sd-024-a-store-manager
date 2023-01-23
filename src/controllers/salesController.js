@@ -25,7 +25,8 @@ const findById = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  const { id, name } = req.body;
+  const { name } = req.body;
+  const { id } = req.params;
   const response = await salesService.updateProduct(id, name);
   return res.status(200).json(response);
 };
