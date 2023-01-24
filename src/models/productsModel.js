@@ -21,7 +21,7 @@ const createProduct = async ({ name }) => {
 const updateProduct = async ({ id, name }) => {
   const query = 'UPDATE products SET name = ? WHERE id = ?';
   const [{ affectedRows }] = await connection.execute(query, [name, id]);
-  return { affectedRows, id, name };
+  return [affectedRows, { id, name }];
 };
 
 module.exports = {
