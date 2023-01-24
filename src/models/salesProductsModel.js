@@ -37,15 +37,8 @@ const findById = async (id) => {
   return { dateOfSales, productsOfSales };
 };
 
-const updateProduct = async (id, name) => {
-  const query = 'UPDATE products SET name = ? WHERE id = ?';
-  const [updatedProduct] = await connection.execute(query, [name, id]);
-  return updatedProduct;
-};
-
 module.exports = {
   newSaleProduct,
   getAll,
   findById,
-  updateProduct,
 };
