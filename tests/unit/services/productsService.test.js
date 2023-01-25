@@ -42,5 +42,20 @@ describe("Service of products", function () {
 
         expect(result).to.deep.equal(products.errReturnGetByid);
       });
+     it("Testa a create do service", async function () {
+       sinon.stub(productsModels, "createProduct").resolves(1);
+       sinon
+         .stub(productsModels, "getProductById")
+         .resolves(products.findProduct);
+
+       const result = await productsService.createProduct({
+         name: "xablau",
+       });
+
+       expect(result).to.deep.equal({
+         id: 1,
+         name: "xablau",
+       });
+     });
   });
 });
