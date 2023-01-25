@@ -41,5 +41,19 @@ describe("Controller of products", function () {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(products.findProduct);
     });
+    it("ordersby id FAIL", async function () {
+      const req = {
+        params: { id: 999 },
+      };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productsService, "getProductById")
+        .resolves({ type: 404, message: "Product not found" });
+      await productsControler.getProductById(req, res);
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith(products.errReturnGetByid);
+    });
   });
 });
