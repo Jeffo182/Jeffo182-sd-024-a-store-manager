@@ -25,7 +25,7 @@ describe("Service of products", function () {
     afterEach(() => {
       sinon.restore();
     });
-      it("Test getProductById do product", async function () {
+      it("Test getProductById product", async function () {
         sinon
           .stub(productsModels, "getProductById")
           .resolves(products.findProduct);
@@ -35,7 +35,7 @@ describe("Service of products", function () {
         expect(result).to.deep.equal(products.returnGetById);
       });
 
-      it("Test getProductById do product (caso de erro)", async function () {
+      it("Test getProductById Error", async function () {
         sinon.stub(productsModels, "getProductById").resolves(undefined);
 
         const result = await productsService.getProductById(999);

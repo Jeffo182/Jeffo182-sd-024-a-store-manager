@@ -37,4 +37,5 @@ module.exports = {
   nameProductMock,
   returnGetById,
   errReturnGetByid,
+  findProduct,
 };
