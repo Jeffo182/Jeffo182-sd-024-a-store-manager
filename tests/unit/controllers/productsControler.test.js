@@ -31,10 +31,12 @@ describe("Controller of products", function () {
       const req = {
         params: { id: 1 },
       };
-      sinon.stub(productsService, "getProductById").resolves({
-        id: 1,
-        name: "Martelo de Thor",
-      });
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productsService, "getProductById")
+        .resolves({ type: null, message: products.findProduct });
       await productsControler.getProductById(req, res);
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(products.findProduct);
